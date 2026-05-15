@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no, maximum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#7a5a36">
+    <title>Duck Roundup</title>
+    <link rel="stylesheet" href="./style.css">
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+        }
+    }
+    </script>
+</head>
+<body>
+    <canvas id="game-canvas"></canvas>
+
+    <div id="ui-root">
+        <div id="hud">
+            <div id="duck-counter" class="hud-pill">Ducks: 0 / 12</div>
+            <div id="timer" class="hud-pill">Nightfall: 02:00</div>
+            <button id="pause-btn" class="hud-pill hud-btn" type="button" aria-label="Pause">II</button>
+        </div>
+
+        <div id="joystick" aria-hidden="true">
+            <div id="joystick-thumb"></div>
+        </div>
+
+        <div id="start-screen" class="modal">
+            <div class="modal-card">
+                <h1>Duck Roundup</h1>
+                <p class="tagline">Herd the flock into the coop before nightfall.</p>
+                <ul class="how-to">
+                    <li>Drag anywhere to steer the dog (or use the joystick / WASD)</li>
+                    <li>Push from <em>behind</em> the flock to nudge them toward the coop</li>
+                    <li>Crash through them and they will scatter</li>
+                </ul>
+                <button id="start-btn" class="primary-btn" type="button">Start</button>
+            </div>
+        </div>
+
+        <div id="end-screen" class="modal hidden">
+            <div class="modal-card">
+                <h2 id="end-title"></h2>
+                <p id="end-message"></p>
+                <button id="replay-btn" class="primary-btn" type="button">Play Again</button>
+            </div>
+        </div>
+
+        <div id="pause-screen" class="modal hidden">
+            <div class="modal-card">
+                <h2>Paused</h2>
+                <button id="resume-btn" class="primary-btn" type="button">Resume</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="./src/main.js"></script>
+</body>
+</html>
