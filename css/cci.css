@@ -1,0 +1,106 @@
+/* CCI / FYiT interview page — extends the site's brand (navy #16425b). */
+
+.cci-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 110px 20px 60px;
+}
+
+.cci-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 32px;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .cci-grid { grid-template-columns: 1fr; }
+}
+
+.cci-conversation,
+.cci-notebook {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 6px 24px rgba(22, 66, 91, 0.10);
+    padding: 32px;
+}
+
+.cci-title {
+    color: #16425b;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.cci-subtitle {
+    color: #44797B;
+    font-size: 1.05rem;
+    margin-bottom: 24px;
+}
+
+.cci-intro p { color: #333; margin-bottom: 16px; }
+
+.cci-consent {
+    list-style: none;
+    margin: 0 0 24px;
+    padding: 16px 18px;
+    background: #f4f8fa;
+    border-left: 4px solid #FFB548;
+    border-radius: 6px;
+}
+.cci-consent li { margin: 6px 0; color: #555; font-size: 0.95rem; }
+
+.cci-start-btn { font-size: 1.05rem; padding: 14px 30px; }
+
+.cci-status {
+    margin-top: 14px;
+    font-size: 0.92rem;
+    color: #767676;
+    min-height: 1.2em;
+}
+.cci-status.error { color: #CF3339; }
+
+.cci-widget-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 320px;
+}
+
+/* Notebook */
+.cci-notebook-title {
+    color: #16425b;
+    font-size: 1.4rem;
+    margin-bottom: 4px;
+}
+.cci-notebook-hint {
+    color: #767676;
+    font-size: 0.88rem;
+    margin-bottom: 18px;
+}
+.cci-notebook-body {
+    font-family: Georgia, 'Times New Roman', serif;
+    color: #2b2b2b;
+}
+.cci-empty { color: #9aa7ad; font-style: italic; }
+
+.cci-section { margin-bottom: 22px; }
+.cci-section h3 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #44797B;
+    margin-bottom: 6px;
+    border-bottom: 1px solid #e6edf0;
+    padding-bottom: 4px;
+}
+.cci-section p { margin: 4px 0; line-height: 1.55; }
+.cci-section .cci-label { color: #16425b; font-weight: 600; font-family: 'Open Sans', sans-serif; font-size: 0.85rem; }
+.cci-fresh { animation: cciFlash 1.4s ease-out; }
+@keyframes cciFlash {
+    from { background: #FFF3D6; }
+    to   { background: transparent; }
+}
+
+.cci-download { margin-top: 20px; }

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FYiT — The Career Construction Interview | Create Your Why</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Georgia&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/cci.css">
+</head>
+<body>
+    <header id="header">
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo">
+                    <a href="index.html" class="logo-text">
+                        Create Your Why
+                        <span class="logo-tagline">Life Designing for Career Construction</span>
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="index.html#fyit" class="nav-link">About FYiT</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main class="cci-main">
+        <div class="cci-grid">
+            <!-- Conversation panel -->
+            <section class="cci-conversation">
+                <h1 class="cci-title">Finding Yourself in Transition</h1>
+                <p class="cci-subtitle">A spoken Career Construction Interview, guided in Dr. Kevin Glavin's style.</p>
+
+                <div id="cciIntro" class="cci-intro">
+                    <p>This is a voice conversation — about 45 minutes when you have the time
+                    to do it properly. There are no wrong answers. You'll be asked about
+                    people you admired, what you love to watch, a favourite story, a saying,
+                    and a few early memories. Find a quiet spot, and we'll take it slowly.</p>
+                    <ul class="cci-consent">
+                        <li>Your microphone is used only during the conversation.</li>
+                        <li>Your answers are saved so you can revisit them and get your report.</li>
+                        <li>You can stop any time.</li>
+                    </ul>
+                    <button id="cciStart" class="btn cci-start-btn">Begin the Interview</button>
+                    <p id="cciStatus" class="cci-status"></p>
+                </div>
+
+                <div id="cciWidgetWrap" class="cci-widget-wrap" hidden>
+                    <!-- ElevenLabs widget injected here by js/cci.js -->
+                </div>
+            </section>
+
+            <!-- Live notebook -->
+            <aside class="cci-notebook">
+                <h2 class="cci-notebook-title">Your Story So Far</h2>
+                <p class="cci-notebook-hint">Filled in as you talk — in your own words.</p>
+                <div id="cciNotebook" class="cci-notebook-body">
+                    <p class="cci-empty">Nothing yet. We'll start with what brought you here.</p>
+                </div>
+                <button id="cciDownload" class="btn-outline cci-download" hidden>Download my answers</button>
+            </aside>
+        </div>
+    </main>
+
+    <script type="module" src="js/cci.js"></script>
+</body>
+</html>

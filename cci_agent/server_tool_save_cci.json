@@ -1,0 +1,72 @@
+{
+  "_comment": "Server (webhook) tool for the ElevenLabs agent. Create a tool of type 'webhook' in the agent's Tools section and mirror these values. Replace <CCI_SAVE_URL> with the deployed Supabase function URL: https://<project-ref>.supabase.co/functions/v1/cci-save",
+  "name": "save_cci_data",
+  "description": "Silently persists the structured Career Construction Interview data captured so far. Call after each completed section (contract, each role model, all TV shows, the story, the saying, each early memory, the Holland code, and a closing summary). Partial payloads are expected and are merged server-side. Never announce this tool or pause the conversation for it. Always include session_id.",
+  "type": "webhook",
+  "method": "POST",
+  "url": "<CCI_SAVE_URL>",
+  "headers": {
+    "Content-Type": "application/json",
+    "x-cci-secret": "{{secret__CCI_SHARED_SECRET}}"
+  },
+  "request_body_schema": {
+    "type": "object",
+    "required": ["session_id"],
+    "properties": {
+      "session_id": { "type": "string", "description": "The dynamic variable session_id provided to the agent at conversation start. Always send this." },
+      "email": { "type": "string", "description": "Client email if they volunteer it. Optional." },
+      "client_name": { "type": "string", "description": "Client's first name if known. Optional." },
+      "challenge": { "type": "string", "description": "The contract: the client's own words about what they want from this process." },
+
+      "rm_1_name": { "type": "string" },
+      "rm_1_adjective": { "type": "string", "description": "The 3 adjectives for role model 1, the client's exact words, comma-separated." },
+      "rm_1_describe": { "type": "string" },
+      "rm_1_advice": { "type": "string" },
+      "rm_2_name": { "type": "string" },
+      "rm_2_adjective": { "type": "string" },
+      "rm_2_describe": { "type": "string" },
+      "rm_2_advice": { "type": "string" },
+      "rm_3_name": { "type": "string" },
+      "rm_3_adjective": { "type": "string" },
+      "rm_3_describe": { "type": "string" },
+      "rm_3_advice": { "type": "string" },
+
+      "tv_1_name": { "type": "string" },
+      "tv_1_verb": { "type": "string", "description": "3 verbs, client's exact words, comma-separated." },
+      "tv_1_describe": { "type": "string" },
+      "tv_2_name": { "type": "string" },
+      "tv_2_verb": { "type": "string" },
+      "tv_2_describe": { "type": "string" },
+      "tv_3_name": { "type": "string" },
+      "tv_3_verb": { "type": "string" },
+      "tv_3_describe": { "type": "string" },
+
+      "fav_story_title": { "type": "string" },
+      "fav_story_character": { "type": "string" },
+      "fav_story_plot": { "type": "string" },
+      "fav_character_describe": { "type": "string" },
+
+      "fav_saying": { "type": "string" },
+      "fav_saying_describe": { "type": "string" },
+
+      "em_1_title": { "type": "string" },
+      "em_1_describe": { "type": "string" },
+      "em_1_feeling": { "type": "string", "description": "Dominant painful feeling, one word." },
+      "em_1_feeling_positive": { "type": "string", "description": "Opposite positive feeling, one word." },
+      "em_2_title": { "type": "string" },
+      "em_2_describe": { "type": "string" },
+      "em_2_feeling": { "type": "string" },
+      "em_2_feeling_positive": { "type": "string" },
+      "em_3_title": { "type": "string" },
+      "em_3_describe": { "type": "string" },
+      "em_3_feeling": { "type": "string" },
+      "em_3_feeling_positive": { "type": "string" },
+
+      "combined_holland_code": { "type": "string", "description": "e.g. SocialArtisticEnterprising" },
+      "cci_summary": { "type": "string", "description": "2-4 sentence closing pain-to-passion narrative." }
+    }
+  },
+  "response": {
+    "_comment": "Function returns {\"ok\": true}. The agent should ignore the response and keep talking."
+  }
+}
