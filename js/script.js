@@ -22,8 +22,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Current active section
     let activeSection = 'home';
     
-    // *** ENTER YOUR OPENAI API KEY HERE ***
-    const openaiApiKey = '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'; // Replace with your actual OpenAI API key
+    // SECURITY: Never put a real OpenAI API key here. Client-side JS is fully
+    // visible to every visitor, so any key placed here is exposed to the world.
+    // To enable live AI replies, route requests through a server-side proxy that
+    // holds the key as an environment variable (see callOpenAI). While this is
+    // empty, the chatbot gracefully uses its built-in fallback responses.
+    const openaiApiKey = '';
     
     // Chat conversation history
     let chatHistory = [{
