@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Late Submission Deduction Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #16425b;
+            --blue: #3a7ca5;
+            --orange: #f39237;
+            --orange-dark: #e87d21;
+            --bg: #f7f9fb;
+            --border: #d8e0e6;
+            --text: #333333;
+            --muted: #767676;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--bg);
+            padding: 30px 16px 60px;
+        }
+
+        .wrapper { max-width: 760px; margin: 0 auto; }
+
+        header.page-head { text-align: center; margin-bottom: 28px; }
+        header.page-head h1 { color: var(--navy); font-size: 1.9rem; line-height: 1.25; }
+        header.page-head p { color: var(--muted); margin-top: 6px; }
+
+        .card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 26px;
+            box-shadow: 0 2px 12px rgba(22, 66, 91, 0.06);
+            margin-bottom: 24px;
+        }
+
+        .card h2 {
+            color: var(--navy);
+            font-size: 1.15rem;
+            margin-bottom: 18px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--bg);
+        }
+
+        .field { margin-bottom: 18px; }
+        .field label {
+            display: block;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 6px;
+            font-size: 0.95rem;
+        }
+        .field .hint { font-weight: 400; color: var(--muted); font-size: 0.82rem; }
+        .field .req { color: var(--orange-dark); }
+
+        input[type="number"], select {
+            width: 100%;
+            padding: 11px 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: #fff;
+        }
+        input[type="number"]:focus, select:focus {
+            outline: none;
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(58, 124, 165, 0.15);
+        }
+
+        .row { display: flex; gap: 16px; flex-wrap: wrap; }
+        .row .field { flex: 1; min-width: 200px; }
+
+        .btn {
+            background: var(--orange);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 13px 26px;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn:hover { background: var(--orange-dark); }
+        .btn-secondary {
+            background: var(--blue);
+        }
+        .btn-secondary:hover { background: var(--navy); }
+        .btn-ghost {
+            background: transparent;
+            color: var(--blue);
+            border: 1px solid var(--border);
+        }
+        .btn-ghost:hover { background: var(--bg); color: var(--navy); }
+
+        .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+        .error-msg {
+            background: #fdecea;
+            border: 1px solid #f5c2c0;
+            color: #a3261d;
+            padding: 12px 14px;
+            border-radius: 6px;
+            margin-bottom: 18px;
+            font-size: 0.92rem;
+            display: none;
+        }
+        .error-msg.show { display: block; }
+
+        /* Results */
+        #results { display: none; }
+        #results.show { display: block; }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 14px;
+            margin-bottom: 22px;
+        }
+        .stat {
+            background: var(--bg);
+            border-radius: 8px;
+            padding: 14px;
+            text-align: center;
+        }
+        .stat .label { font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4px; }
+        .stat .value { font-size: 1.5rem; font-weight: 700; color: var(--navy); margin-top: 4px; }
+        .stat.highlight { background: var(--navy); }
+        .stat.highlight .label { color: rgba(255,255,255,0.75); }
+        .stat.highlight .value { color: #fff; }
+
+        .message-box {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            white-space: pre-wrap;
+            font-size: 0.93rem;
+            color: var(--text);
+            margin-bottom: 16px;
+            max-height: 420px;
+            overflow-y: auto;
+        }
+        .message-box .lead { font-weight: 600; color: var(--navy); }
+
+        .copy-note {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-bottom: 14px;
+        }
+        .copied-flash {
+            color: #1f7a3d;
+            font-weight: 600;
+            margin-left: 10px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .copied-flash.show { opacity: 1; }
+
+        .placeholder-text { color: var(--muted); text-align: center; padding: 20px 0; }
+        footer.page-foot { text-align: center; color: var(--muted); font-size: 0.82rem; margin-top: 30px; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header class="page-head">
+            <h1>Late Submission Deduction Calculator</h1>
+            <p>Enter the submission details to calculate the deduction, final grade, and the message for the student.</p>
+        </header>
+
+        <div class="card">
+            <h2>Submission Details</h2>
+            <div id="errorMsg" class="error-msg"></div>
+
+            <div class="row">
+                <div class="field">
+                    <label for="submissionType">Type of Submission</label>
+                    <select id="submissionType">
+                        <option value="discussion" selected>Discussion Post</option>
+                        <option value="assignment">Assignment</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="maxPoints">Maximum Points Available <span class="hint">(default 10)</span></label>
+                    <input type="number" id="maxPoints" value="10" min="0" step="0.5">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="field">
+                    <label for="originalGrade">Original Grade <span class="req">*required</span></label>
+                    <input type="number" id="originalGrade" min="0" step="0.5" placeholder="e.g. 8">
+                </div>
+                <div class="field">
+                    <label for="daysLate">Days Late <span class="req">*required</span> <span class="hint">(actual days, e.g. 1.9)</span></label>
+                    <input type="number" id="daysLate" min="0" step="0.1" placeholder="e.g. 1.9">
+                </div>
+            </div>
+
+            <div class="actions">
+                <button class="btn" id="calcBtn">Calculate</button>
+                <button class="btn-ghost btn" id="resetBtn">Reset</button>
+            </div>
+        </div>
+
+        <div class="card" id="results">
+            <h2>Results</h2>
+            <div class="summary-grid" id="summaryGrid"></div>
+
+            <h2 style="font-size:1rem;">Message for the Student</h2>
+            <p class="copy-note">Paste this into the grading summary, under &ldquo;Best wishes, Dr.&nbsp;Glavin&rdquo;.</p>
+            <div class="message-box" id="messageBox"></div>
+            <div class="actions">
+                <button class="btn btn-secondary" id="copyBtn">Copy Message</button>
+                <span class="copied-flash" id="copiedFlash">Copied!</span>
+            </div>
+        </div>
+
+        <footer class="page-foot">
+            Create Your Why &middot; Grading tool for late submission deductions
+        </footer>
+    </div>
+
+    <script>
+        // ---- Configuration drawn from the Instructions for Point Deductions ----
+        var RATES = {
+            discussion: { label: 'Discussion Post', perDay: 0.10 },
+            assignment: { label: 'Assignment',      perDay: 0.25 }
+        };
+
+        var LATE_POLICY_TEXT =
+"Late Submission Policies\n" +
+"Learners have competing priorities. You may work for income, have a family, be a caregiver, or other unique responsibilities as important to you as this course. In addition, global, local, cultural, and climate events may be impacting your ability to concentrate on your academics. Your Instructor experiences similar pressures. Please familiarize yourself with these assignment submission policies (sometimes called “late policies”) to make the best decision about how to prioritize your time.\n\n" +
+"Discussion Postings\n" +
+"10% deduction off the total Discussion points possible (rounded to the nearest half point) for each day late on any submission of a main post or a response post\n" +
+"No credit for any posts made after the week in which they are due\n\n" +
+"Assignments and Skills Simulations\n" +
+"25% deduction per day\n" +
+"No credit for any Assignment submitted after Day 3 of the following week\n\n" +
+"Quizzes and Exams\n" +
+"Quizzes and Exams not accepted after the due date\n\n" +
+"Extension Requests\n" +
+"Should you encounter an unanticipated and uncontrollable life event (e.g., health crisis for you or an immediate family member for whom you are a caregiver, extended and extraordinarily severe weather events that disrupt communications or access to power and/or the internet, or being called to military duty) that may prevent you from meeting an assignment deadline, contact the Instructor immediately to request an extension. Requests for repeated or longer extensions will be granted at the Instructor’s discretion. Chronic late submission of work will adversely affect your grade. Poor time management, other work commitments, vacations, not reading or following the Course Syllabus, or failure to obtain the appropriate materials are not events that warrant special consideration.";
+
+        // Round days late per the rules:
+        //  - less than 1 day  -> 0 (no deduction)
+        //  - otherwise rounded UP to the next whole day (1.5 -> 2, 1.9 -> 2, 2.5 -> 3)
+        function effectiveDaysLate(actual) {
+            if (actual < 1) return 0;
+            return Math.ceil(actual);
+        }
+
+        // Format numbers without trailing zeros (8.0 -> "8", 6.5 -> "6.5")
+        function fmt(n) {
+            return (Math.round(n * 100) / 100).toString();
+        }
+
+        function showError(msg) {
+            var el = document.getElementById('errorMsg');
+            el.textContent = msg;
+            el.classList.add('show');
+        }
+        function clearError() {
+            document.getElementById('errorMsg').classList.remove('show');
+        }
+
+        function calculate() {
+            clearError();
+
+            var type = document.getElementById('submissionType').value;
+            var maxPointsRaw = document.getElementById('maxPoints').value;
+            var originalRaw = document.getElementById('originalGrade').value;
+            var daysLateRaw = document.getElementById('daysLate').value;
+
+            // Validation
+            if (originalRaw === '' || isNaN(parseFloat(originalRaw))) {
+                showError('Please enter the Original Grade.');
+                return;
+            }
+            if (daysLateRaw === '' || isNaN(parseFloat(daysLateRaw))) {
+                showError('Please enter the Days Late.');
+                return;
+            }
+
+            var maxPoints = (maxPointsRaw === '' || isNaN(parseFloat(maxPointsRaw))) ? 10 : parseFloat(maxPointsRaw);
+            var originalGrade = parseFloat(originalRaw);
+            var actualDaysLate = parseFloat(daysLateRaw);
+
+            if (originalGrade < 0) { showError('Original Grade cannot be negative.'); return; }
+            if (actualDaysLate < 0) { showError('Days Late cannot be negative.'); return; }
+            if (maxPoints <= 0) { showError('Maximum Points Available must be greater than zero.'); return; }
+
+            var rate = RATES[type];
+            var days = effectiveDaysLate(actualDaysLate);
+            var totalPct = days * rate.perDay;                 // e.g. 0.20
+            var deduction = totalPct * maxPoints;              // e.g. 2
+            var finalGrade = originalGrade - deduction;
+            if (finalGrade < 0) finalGrade = 0;                // grade cannot go below 0
+
+            renderResults({
+                typeLabel: rate.label,
+                perDayPct: rate.perDay * 100,
+                maxPoints: maxPoints,
+                originalGrade: originalGrade,
+                actualDaysLate: actualDaysLate,
+                days: days,
+                totalPct: totalPct * 100,
+                deduction: deduction,
+                finalGrade: finalGrade
+            });
+        }
+
+        function renderResults(r) {
+            // Summary stat cards
+            var grid = document.getElementById('summaryGrid');
+            grid.innerHTML =
+                stat('Original Grade', fmt(r.originalGrade) + ' / ' + fmt(r.maxPoints)) +
+                stat('Days Late (counted)', fmt(r.days) + (r.days === 1 ? ' day' : ' days')) +
+                stat('Deduction', '-' + fmt(r.deduction)) +
+                stat('Final Grade', fmt(r.finalGrade) + ' / ' + fmt(r.maxPoints), true);
+
+            // Student-facing message
+            var msg;
+            if (r.deduction > 0) {
+                msg =
+"You lost some points because your submission was submitted late.\n" +
+"Original Grade = " + fmt(r.originalGrade) + "/" + fmt(r.maxPoints) + "\n" +
+"Days Late = " + fmt(r.days) + "\n" +
+"Deduction = " + fmt(r.perDayPct) + "% per day late = " + fmt(r.totalPct) + "% = " + fmt(r.deduction) + "\n" +
+"Final Grade = " + fmt(r.originalGrade) + "-" + fmt(r.deduction) + " = " + fmt(r.finalGrade) + "\n\n" +
+LATE_POLICY_TEXT;
+            } else {
+                msg =
+"No late deduction was applied to this " + r.typeLabel + ".\n" +
+(r.actualDaysLate > 0
+    ? "The submission was less than 1 day late, which does not receive a deduction.\n"
+    : "The submission was on time.\n") +
+"Final Grade = " + fmt(r.finalGrade) + "/" + fmt(r.maxPoints);
+            }
+
+            var box = document.getElementById('messageBox');
+            box.textContent = msg;
+            window._currentMessage = msg;
+
+            // Show/hide copy controls based on whether there is a message worth copying
+            document.getElementById('results').classList.add('show');
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function stat(label, value, highlight) {
+            return '<div class="stat' + (highlight ? ' highlight' : '') + '">' +
+                   '<div class="label">' + label + '</div>' +
+                   '<div class="value">' + value + '</div></div>';
+        }
+
+        function copyMessage() {
+            var text = window._currentMessage || '';
+            if (!text) return;
+            var flash = document.getElementById('copiedFlash');
+            function flashOk() {
+                flash.classList.add('show');
+                setTimeout(function(){ flash.classList.remove('show'); }, 1800);
+            }
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(flashOk, fallbackCopy);
+            } else {
+                fallbackCopy();
+            }
+            function fallbackCopy() {
+                var ta = document.createElement('textarea');
+                ta.value = text;
+                document.body.appendChild(ta);
+                ta.select();
+                try { document.execCommand('copy'); flashOk(); } catch (e) {}
+                document.body.removeChild(ta);
+            }
+        }
+
+        function resetForm() {
+            document.getElementById('submissionType').value = 'discussion';
+            document.getElementById('maxPoints').value = '10';
+            document.getElementById('originalGrade').value = '';
+            document.getElementById('daysLate').value = '';
+            clearError();
+            document.getElementById('results').classList.remove('show');
+            window._currentMessage = '';
+        }
+
+        document.getElementById('calcBtn').addEventListener('click', calculate);
+        document.getElementById('resetBtn').addEventListener('click', resetForm);
+        document.getElementById('copyBtn').addEventListener('click', copyMessage);
+
+        // Allow Enter key in inputs to trigger calculation
+        ['originalGrade', 'daysLate', 'maxPoints'].forEach(function(id) {
+            document.getElementById(id).addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') calculate();
+            });
+        });
+    </script>
+</body>
+</html>
