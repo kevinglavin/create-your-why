@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Architecture of Connection — Research Portfolio</title>
+<meta name="description" content="Research portfolio on faculty-led skills coaching in online counseling education: ROI analysis, retention evidence review, and Skills Enhancement Lab data.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1d2a32;
+    --ink-soft: #465964;
+    --paper: #faf8f4;
+    --card: #ffffff;
+    --accent: #0e6e63;
+    --accent-dark: #0a564e;
+    --accent-soft: #e3f0ee;
+    --gold: #c9a25e;
+    --line: #e6e1d8;
+    --radius: 14px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 { font-family: 'Fraunces', Georgia, serif; line-height: 1.15; }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  /* Header / hero */
+  header {
+    background: linear-gradient(160deg, #10302f 0%, #0e6e63 70%, #14857a 100%);
+    color: #f4f9f8;
+    padding: 72px 0 64px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::after {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 600px 300px at 85% 10%, rgba(201,162,94,.18), transparent 60%),
+      radial-gradient(ellipse 500px 400px at 5% 95%, rgba(255,255,255,.06), transparent 60%);
+    pointer-events: none;
+  }
+  .eyebrow {
+    display: inline-block;
+    font-size: .78rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--gold);
+    border: 1px solid rgba(201,162,94,.45);
+    border-radius: 999px;
+    padding: 6px 14px;
+    margin-bottom: 22px;
+  }
+  header h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 700;
+    max-width: 18ch;
+    margin-bottom: 18px;
+  }
+  header p.lede {
+    font-size: clamp(1rem, 2.2vw, 1.15rem);
+    color: rgba(244,249,248,.88);
+    max-width: 62ch;
+  }
+  .hero-cta {
+    display: inline-block;
+    margin-top: 28px;
+    background: var(--gold);
+    color: #25201a;
+    font-weight: 600;
+    font-size: .95rem;
+    text-decoration: none;
+    padding: 13px 26px;
+    border-radius: 999px;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.25); }
+
+  /* Key stats band */
+  .stats {
+    background: var(--card);
+    border-bottom: 1px solid var(--line);
+    padding: 28px 0;
+  }
+  .stats .wrap {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 18px;
+    text-align: center;
+  }
+  .stat b {
+    display: block;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.9rem;
+    color: var(--accent);
+  }
+  .stat span { font-size: .85rem; color: var(--ink-soft); }
+
+  /* Documents section */
+  section.docs { padding: 64px 0 80px; }
+  .section-head { margin-bottom: 36px; }
+  .section-head h2 { font-size: clamp(1.5rem, 3.5vw, 2.1rem); margin-bottom: 8px; }
+  .section-head p { color: var(--ink-soft); max-width: 60ch; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 24px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 14px 34px rgba(29,42,50,.10); }
+  .card.featured { border-top: 4px solid var(--gold); }
+  .tag {
+    align-self: flex-start;
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--accent-dark);
+    background: var(--accent-soft);
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  .card h3 { font-size: 1.25rem; margin-bottom: 10px; }
+  .card p.desc { font-size: .93rem; color: var(--ink-soft); flex-grow: 1; }
+  .meta { font-size: .8rem; color: #8a9099; margin: 16px 0 18px; }
+  .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  .btn {
+    flex: 1 1 auto;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: .88rem;
+    padding: 11px 18px;
+    border-radius: 8px;
+    transition: background .15s ease, color .15s ease;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent-dark); }
+  .btn-ghost { border: 1.5px solid var(--accent); color: var(--accent); }
+  .btn-ghost:hover { background: var(--accent-soft); }
+
+  /* Narrative band */
+  .narrative {
+    background: var(--card);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 56px 0;
+  }
+  .narrative .wrap { max-width: 760px; }
+  .narrative h2 { font-size: clamp(1.4rem, 3vw, 1.8rem); margin-bottom: 18px; }
+  .narrative p { color: var(--ink-soft); margin-bottom: 14px; }
+  .narrative blockquote {
+    border-left: 4px solid var(--gold);
+    padding: 6px 0 6px 20px;
+    margin: 24px 0;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.15rem;
+    color: var(--ink);
+  }
+
+  footer {
+    padding: 40px 0 48px;
+    text-align: center;
+    font-size: .85rem;
+    color: #8a9099;
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+
+  @media (max-width: 640px) {
+    header { padding: 56px 0 48px; }
+    .card { padding: 22px; }
+    .actions { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <span class="eyebrow">Research Portfolio · Prepared for Nina</span>
+    <h1>The Architecture of Connection</h1>
+    <p class="lede">Evaluating the return on investment of faculty-led skills coaching in online counseling
+    education — an evidence review, program data analysis, and ROI framework supporting the case for
+    structured, relational student support as a retention intervention.</p>
+    <a class="hero-cta" href="#documents">Explore the Documents ↓</a>
+  </div>
+</header>
+
+<div class="stats">
+  <div class="wrap">
+    <div class="stat"><b>98.5%</b><span>of SEL participants would tell a peer “Definitely go!”</span></div>
+    <div class="stat"><b>68</b><span>post-session survey responses in Cycle 1</span></div>
+    <div class="stat"><b>8</b><span>themes identified through inductive analysis</span></div>
+    <div class="stat"><b>4</b><span>documents in this portfolio</span></div>
+  </div>
+</div>
+
+<section class="docs" id="documents">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>The Documents</h2>
+      <p>Start with the executive brief for the recommendation and ROI framing, then dive into the full
+      report, the supporting evidence review, and the Cycle 1 program data.</p>
+    </div>
+    <div class="grid">
+
+      <article class="card featured">
+        <span class="tag">Executive Brief</span>
+        <h3>The Architecture of Connection: ROI Brief</h3>
+        <p class="desc">The working-draft executive summary prepared for internal review. Recommends
+        retaining the faculty-led coaching program and evaluating it as a targeted student-success
+        intervention rather than cutting it as a remedial cost center — weighing visible labor costs
+        against hidden institutional leakage from student attrition.</p>
+        <p class="meta">PDF · 7 pages · Working draft</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="docs/architecture-of-connection-roi-brief.pdf" target="_blank" rel="noopener">View</a>
+          <a class="btn btn-ghost" href="docs/architecture-of-connection-roi-brief.pdf" download>Download</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <span class="tag">Full Report</span>
+        <h3>Clinical Coaching ROI — Full Report</h3>
+        <p class="desc">The complete Clinical Coaching ROI report: the full presentation of the
+        administrative dilemma, persistence drivers for online adult learners, and the financial case
+        for individualized, faculty-led coaching in a CACREP-accredited counseling program.</p>
+        <p class="meta">PDF · Full-length report · 8&nbsp;MB</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="docs/clinical-coaching-roi-full-report.pdf" target="_blank" rel="noopener">View</a>
+          <a class="btn btn-ghost" href="docs/clinical-coaching-roi-full-report.pdf" download>Download</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <span class="tag">Evidence Review</span>
+        <h3>Faculty Support &amp; Student Retention Whitepaper</h3>
+        <p class="desc">A structured, Tier-1 evidence review of faculty connection, belonging, and
+        structured support as predictors of retention, persistence, and graduation — anchored in Tinto,
+        Astin, Bean &amp; Metzner, Kuh, Strayhorn, and the Community of Inquiry framework, and translated
+        into a local evaluation and ROI framework.</p>
+        <p class="meta">PDF · 35 pages · Pre-draft research framing</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="docs/faculty-support-retention-whitepaper.pdf" target="_blank" rel="noopener">View</a>
+          <a class="btn btn-ghost" href="docs/faculty-support-retention-whitepaper.pdf" download>Download</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <span class="tag">Program Data</span>
+        <h3>Skills Enhancement Lab: Cycle 1 Data Analysis</h3>
+        <p class="desc">Descriptive and thematic analysis of 68 anonymous post-session responses from the
+        Skills Enhancement Lab — a synchronous, voluntary, non-evaluative coaching program. Dominant
+        themes: specific skill practice and feedback (69.4%), anxiety reduction (33.9%), and hands-on
+        practice-based learning (32.3%).</p>
+        <p class="meta">PDF · 11 pages · APA-style analysis</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="docs/sel-cycle1-data-analysis.pdf" target="_blank" rel="noopener">View</a>
+          <a class="btn btn-ghost" href="docs/sel-cycle1-data-analysis.pdf" download>Download</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<div class="narrative">
+  <div class="wrap">
+    <h2>Why this matters</h2>
+    <p>Graduate attrition has been described as a hidden crisis: roughly 30–50% of doctoral students never
+    complete, most often departing during dissertation, clinical, or practicum stages. For counseling
+    students, those risks intersect with gatekeeping requirements, supervision demands, and a fragile,
+    still-forming professional identity.</p>
+    <blockquote>When early clinical performance goes poorly and no structured relational support is
+    available, students may interpret the struggle as evidence that they do not belong in the field.</blockquote>
+    <p>The documents here make a converging case: individualized, faculty-led coaching plausibly targets the
+    mechanisms that matter most for online graduate learners — support quality, instructional clarity,
+    self-efficacy, and perceived institutional care — and early program data show near-universal student
+    endorsement. The recommendation: retain the program and evaluate it as a retention intervention.</p>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Research portfolio on faculty-led skills coaching in online counseling education.</p>
+  </div>
+</footer>
+
+</body>
+</html>
