@@ -22,8 +22,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Current active section
     let activeSection = 'home';
     
-    // *** ENTER YOUR OPENAI API KEY HERE ***
-    const openaiApiKey = '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'; // Replace with your actual OpenAI API key
+    // Never put a real API key here: this file ships to the browser, so any key
+    // in it is public. Route chat requests through a server-side proxy instead.
+    const openaiApiKey = '';
     
     // Chat conversation history
     let chatHistory = [{
@@ -125,6 +126,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to call OpenAI API
     async function callOpenAI(message) {
+        if (!openaiApiKey) {
+            return getFallbackResponse(message);
+        }
         try {
             const response = await fetch('https://api.openai.com/v1/chat/completions', {
                 method: 'POST',
