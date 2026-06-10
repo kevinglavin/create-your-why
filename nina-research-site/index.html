@@ -9,17 +9,17 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-  /* ── Brand palette ── */
+  /* ── Walden University brand palette ── */
   :root {
-    --navy:   #005677;
-    --navy-deep: #00425c;
-    --blue:   #44A2B9;
-    --red:    #CF3339;
-    --orange: #FF6C37;
-    --gold:   #FFB548;
-    --teal:   #44797B;
+    --navy:   #006580;
+    --navy-deep: #00334c;
+    --blue:   #008ea9;
+    --red:    #bd362f;
+    --green:  #00a887;
+    --gold:   #fdb71a;
+    --teal:   #00a887;
     --ink:    #1D252C;
-    --paper:  #f7f9fa;
+    --paper:  #faf8f6;
     --card:   #ffffff;
     --soft:   #54626b;
     --faint:  #8b969d;
@@ -55,7 +55,7 @@
 
   /* ── Hero ── */
   header.hero {
-    background: linear-gradient(165deg, #003c54 0%, var(--navy) 100%);
+    background: linear-gradient(165deg, #00334c 0%, var(--navy) 100%);
     color: #f2f8fa;
     padding: 88px 0;
   }
@@ -65,7 +65,7 @@
   }
   .hero h1 { font-size: clamp(2.1rem, 5vw, 3.2rem); max-width: 18ch; margin-bottom: 14px; }
   .byline { font-size: 1.02rem; color: rgba(242,248,250,.85); }
-  .byline a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(255,181,72,.45); padding-bottom: 1px; }
+  .byline a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(253,183,26,.45); padding-bottom: 1px; }
   .byline a:hover { border-bottom-color: var(--gold); }
   .hero p.lede { font-size: clamp(1rem, 2vw, 1.12rem); color: rgba(242,248,250,.82); max-width: 60ch; }
   .hero-dots { display: flex; gap: 9px; margin: 26px 0 30px; }
@@ -75,7 +75,7 @@
     padding: 13px 28px; border-radius: 999px; transition: transform .15s ease, box-shadow .15s ease;
   }
   .btn:hover { transform: translateY(-1px); }
-  .btn-gold { background: var(--gold); color: #3a2c10; }
+  .btn-gold { background: var(--gold); color: #00334c; }
   .quiet-link { margin-left: 22px; color: rgba(255,255,255,.75); font-weight: 700; font-size: .9rem; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.35); padding-bottom: 2px; }
   .quiet-link:hover { color: #fff; }
 
@@ -97,7 +97,7 @@
   section { padding: 84px 0; }
   .kicker {
     display: block; font-size: .74rem; font-weight: 800; letter-spacing: .18em;
-    text-transform: uppercase; color: var(--teal); margin-bottom: 12px;
+    text-transform: uppercase; color: var(--navy); margin-bottom: 12px;
   }
   .section-head { margin-bottom: 44px; max-width: 680px; }
   .section-head h2 { font-size: clamp(1.55rem, 3.4vw, 2.1rem); margin-bottom: 12px; color: var(--ink); }
@@ -117,7 +117,7 @@
   .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
   .pillar { text-align: center; }
   .pillar .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--blue); margin: 0 auto 12px; }
-  .pillar:nth-child(2) .dot { background: var(--orange); }
+  .pillar:nth-child(2) .dot { background: var(--gold); }
   .pillar:nth-child(3) .dot { background: var(--teal); }
   .pillar b { display: block; font-size: .85rem; line-height: 1.3; margin-bottom: 4px; }
   .pillar small { display: block; font-size: .74rem; color: var(--soft); line-height: 1.4; }
@@ -157,7 +157,7 @@
   .card:hover { box-shadow: 0 10px 28px rgba(0,60,80,.09); }
   .tag {
     font-size: .68rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
-    color: var(--teal); margin-bottom: 12px;
+    color: var(--navy); margin-bottom: 12px;
   }
   .card h3 { font-size: 1.12rem; margin-bottom: 10px; }
   .card p.desc { font-size: .88rem; color: var(--soft); flex-grow: 1; }
@@ -190,10 +190,10 @@
   footer .dots i { width: 9px; height: 9px; border-radius: 50%; display: block; }
   footer p { font-size: .82rem; }
 
-  .dot-red i, i.dot-red { background: var(--red); }
-  .dot-gold i, i.dot-gold { background: var(--gold); }
-  .dot-blue i, i.dot-blue { background: var(--blue); }
-  .dot-orange i, i.dot-orange { background: var(--orange); }
+  i.dot-1 { background: var(--gold); }
+  i.dot-2 { background: var(--green); }
+  i.dot-3 { background: var(--blue); }
+  i.dot-4 { background: #ffffff; }
 
   @media (max-width: 640px) {
     header.hero { padding: 64px 0; }
@@ -209,10 +209,10 @@
   <div class="wrap">
     <a class="brand" href="#top">
       <svg width="46" height="10" viewBox="0 0 46 10" aria-hidden="true">
-        <circle cx="5"  cy="5" r="4" fill="#CF3339"/>
-        <circle cx="17" cy="5" r="4" fill="#FFB548"/>
-        <circle cx="29" cy="5" r="4" fill="#44A2B9"/>
-        <circle cx="41" cy="5" r="4" fill="#FF6C37"/>
+        <circle cx="5"  cy="5" r="4" fill="#fdb71a"/>
+        <circle cx="17" cy="5" r="4" fill="#00a887"/>
+        <circle cx="29" cy="5" r="4" fill="#008ea9"/>
+        <circle cx="41" cy="5" r="4" fill="#ffffff"/>
       </svg>
       Research Portfolio
     </a>
@@ -233,7 +233,7 @@
     <p class="byline"><a href="mailto:nina.spadaro@mail.waldenu.edu">Dr. Nina Spadaro</a> · Co-author of
       <a href="https://www.amazon.com/Counseling-Skills-Primer-Marie-Spadaro/dp/B0CTKJW3WT" target="_blank" rel="noopener"><em>A Counseling Skills Primer</em></a></p>
     <div class="hero-dots">
-      <i class="dot-red"></i><i class="dot-gold"></i><i class="dot-blue"></i><i class="dot-orange"></i>
+      <i class="dot-1"></i><i class="dot-2"></i><i class="dot-3"></i><i class="dot-4"></i>
     </div>
     <p class="lede">Evaluating the return on investment of faculty-led skills coaching in online
     counseling education — evidence reviews, program data, video briefings, and an ROI framework
@@ -269,10 +269,10 @@
         <p class="sub">Online programs face roughly double the dropout rates of on-campus programs.</p>
         <svg class="chart-svg" viewBox="0 0 360 190" role="img" aria-label="Bar chart: online programs face 25 to 40 percent dropout rates versus 10 to 20 percent for on-campus programs">
           <line x1="20" y1="150" x2="340" y2="150" stroke="#e4eaed" stroke-width="2"/>
-          <rect x="62"  y="34"  width="92" height="116" rx="6" fill="#CF3339"/>
-          <rect x="206" y="92"  width="92" height="58"  rx="6" fill="#44A2B9"/>
-          <text x="108" y="24"  text-anchor="middle" font-family="Georgia, serif" font-size="20" font-weight="bold" fill="#CF3339">25–40%</text>
-          <text x="252" y="82"  text-anchor="middle" font-family="Georgia, serif" font-size="20" font-weight="bold" fill="#005677">10–20%</text>
+          <rect x="62"  y="34"  width="92" height="116" rx="6" fill="#bd362f"/>
+          <rect x="206" y="92"  width="92" height="58"  rx="6" fill="#008ea9"/>
+          <text x="108" y="24"  text-anchor="middle" font-family="Georgia, serif" font-size="20" font-weight="bold" fill="#bd362f">25–40%</text>
+          <text x="252" y="82"  text-anchor="middle" font-family="Georgia, serif" font-size="20" font-weight="bold" fill="#00334c">10–20%</text>
           <text x="108" y="172" text-anchor="middle" font-family="Nunito, sans-serif" font-size="12.5" font-weight="700" fill="#54626b">Online programs</text>
           <text x="252" y="172" text-anchor="middle" font-family="Nunito, sans-serif" font-size="12.5" font-weight="700" fill="#54626b">On-campus programs</text>
         </svg>
@@ -462,7 +462,7 @@
 <footer>
   <div class="wrap">
     <div class="dots">
-      <i class="dot-red"></i><i class="dot-gold"></i><i class="dot-blue"></i><i class="dot-orange"></i>
+      <i class="dot-1"></i><i class="dot-2"></i><i class="dot-3"></i><i class="dot-4"></i>
     </div>
     <p>Research &amp; media portfolio on faculty-led skills coaching in online counseling education.</p>
   </div>
