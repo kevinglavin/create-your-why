@@ -1,0 +1,70 @@
+@import url("css/styles.css");
+
+/* Sticky header color refresh */
+#header {
+    background-color: rgba(255, 255, 255, 0.98);
+    color: #102a43;
+    border-bottom: 1px solid rgba(16, 42, 67, 0.08);
+    box-shadow: 0 4px 20px rgba(16, 42, 67, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.logo-text,
+.mobile-menu-toggle,
+.nav-link {
+    color: #102a43;
+}
+
+.logo-tagline {
+    color: #52616f;
+}
+
+.nav-link {
+    position: relative;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    padding: 8px 0;
+}
+
+.nav-link.active,
+.nav-link:hover,
+.nav-link:focus {
+    color: #0b2f4f;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    height: 2px;
+    background-color: #f39237;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+}
+
+.nav-link.active::after,
+.nav-link:hover::after,
+.nav-link:focus::after {
+    transform: scaleX(1);
+}
+
+@media (max-width: 768px) {
+    .nav-menu {
+        background-color: rgba(255, 255, 255, 0.98);
+        border-top: 1px solid rgba(16, 42, 67, 0.08);
+    }
+
+    .nav-item {
+        margin: 8px 0;
+    }
+
+    .nav-link {
+        display: block;
+        color: #102a43;
+        padding: 8px 0;
+    }
+}
